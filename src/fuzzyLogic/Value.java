@@ -16,7 +16,7 @@ class NotARimValueException extends Exception {
 
 }
 
-class Value {
+public class Value {
 	
 	/** la classe valeur correspond à une valeur possible d'évaluation d'une propriété
 	 * 
@@ -71,6 +71,11 @@ class Value {
 	}
 	
 	public float input(float x) {
+		
+		/**
+		 * retourne l'ordonnée du trapèze à l'abscisse x 
+		 */
+		
 		if (x <= this.thresholds[0]) {
 			return(0);
 		} else if (x < this.thresholds[1]) {
@@ -85,6 +90,10 @@ class Value {
 	}
 	
 	public float[] output(float y) {
+		
+		/**
+		 * retourne { abscisse du barycentre du trapèze, aire du trapèze }
+		 */
 		
 		float t0 = this.thresholds[0];
 		float t1 = this.thresholds[0] + y * (this.thresholds[1] - this.thresholds[0]);

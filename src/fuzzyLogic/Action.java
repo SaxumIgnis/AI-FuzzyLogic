@@ -2,24 +2,24 @@ package fuzzyLogic;
 
 import java.util.HashMap;
 
-public class Action {
+public class Action extends Property {
 	
-	private final ReferenceProperty property;
 	private HashMap<String, Float> coeffs;
 
 	
-	public Action(ReferenceProperty prop) throws InvalidProperty {
-		this.property = prop;
+	public Action(String[] keys, Value[] values, Getter getter) throws InvalidProperty {
+		super(keys, values, getter);
 		
-		if (!this.property.check()) throw new InvalidProperty();
+		if (!this.check()) throw new InvalidProperty();
 		
-		for (String key : this.property.keySet()) {
+		for (String key : this.map.keySet()) {
 			this.coeffs.put(key, (float) 0);
 		}
 	}
 	
 	public void applyRule(String key, float val) {
-		this.coeffs.put(key, Math.max(this.coeffs.get(key), this.property.get(key).input(val)));
+		this.coeffs.put(key, Math.max(this.coeffs.get(key), this.map.get(key).input(val)));
+		// TODO : opérateur logique OU (max pour l'instant mais on peut prendre somme moins produit ou autre)
 	}
 	
 	public float defuzzicate() {
@@ -27,8 +27,8 @@ public class Action {
 		float sumVal = 0;
 		float sumCoeff = 0;
 		
-		for (String key : this.property.keySet()) {
-			float[] sum = this.property.get(key).output(this.coeffs.get(key));
+		for (String key : this.map.keySet()) {
+			float[] sum = this.map.get(key).output(this.coeffs.get(key));
 			sumVal += sum[0];
 			sumCoeff += sum[1];
 		}
