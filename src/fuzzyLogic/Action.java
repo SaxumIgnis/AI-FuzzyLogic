@@ -2,13 +2,13 @@ package fuzzyLogic;
 
 import java.util.HashMap;
 
-public class action {
+public class Action {
 	
-	private final referenceProperty property;
+	private final ReferenceProperty property;
 	private HashMap<String, Float> coeffs;
 
 	
-	public action(referenceProperty prop) throws InvalidProperty {
+	public Action(ReferenceProperty prop) throws InvalidProperty {
 		this.property = prop;
 		
 		if (!this.property.check()) throw new InvalidProperty();

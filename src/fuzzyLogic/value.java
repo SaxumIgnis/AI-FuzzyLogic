@@ -16,7 +16,7 @@ class NotARimValueException extends Exception {
 
 }
 
-class value {
+class Value {
 	
 	/** la classe valeur correspond à une valeur possible d'évaluation d'une propriété
 	 * 
@@ -32,7 +32,7 @@ class value {
 	private final rim isRim;
 	
 	
-	public value(float[] thresholds) throws UnsortedThresholdException {
+	public Value(float[] thresholds) throws UnsortedThresholdException {
 		
 		if (thresholds.length != 4) throw new java.lang.ArrayIndexOutOfBoundsException();
 		if (thresholds[0] > thresholds[1] || thresholds[1] > thresholds[2] || thresholds[2] > thresholds[3])
@@ -58,15 +58,15 @@ class value {
 		return(this.isRim != rim.MID);
 	}
 	
-	public value not() throws NotARimValueException, UnsortedThresholdException {
+	public Value not() throws NotARimValueException, UnsortedThresholdException {
 		if (this.isRim == rim.MID) {
 			throw new NotARimValueException();
 		} else if (this.isRim == rim.MIN) {
 			float[] newThresholds = {this.thresholds[2], this.thresholds[3], 1, 1};
-			return(new value(newThresholds));
+			return(new Value(newThresholds));
 		} else {
 			float[] newThresholds = {0, 0, this.thresholds[0], this.thresholds[1]};
-			return(new value(newThresholds));
+			return(new Value(newThresholds));
 		}
 	}
 	
